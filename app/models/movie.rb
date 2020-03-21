@@ -1,4 +1,6 @@
 class Movie < Sequel::Model
+  one_to_many :reservations
+
   DAYS = %w(mon tue wed thu fri sat sun)
 
   def validate
@@ -11,5 +13,11 @@ class Movie < Sequel::Model
 
   def valid_days(days)
     (days.split(',') - DAYS).empty?
+  end
+
+  private
+
+  def self.get(id)
+    where(id: id).first
   end
 end

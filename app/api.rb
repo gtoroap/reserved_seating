@@ -43,7 +43,6 @@ module App
     resource :reservations do
       desc 'Creates a new reservation.'
       post do
-        #Creates a new reservation
         reservation = CreateReservation.new.call(Reservation.new(params))
 
         if reservation.success?

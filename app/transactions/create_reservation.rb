@@ -15,7 +15,8 @@ class CreateReservation
   end
 
   def persist(movie_id:, date:, client_fullname:, total_seats:)
-    reservation = Reservation.create(movie_id: movie_id, date: date, client_fullname: client_fullname, total_seats: total_seats)
+    movie = Movie.get(movie_id)
+    reservation = movie.add_reservation(date: date, client_fullname: client_fullname, total_seats: total_seats)
     Success(reservation)
   end
 end
