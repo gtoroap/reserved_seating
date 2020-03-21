@@ -7,8 +7,18 @@ module App
 
     resource :movies do
       desc 'Creates a new movie.'
+      params do
+        requires :name, type: String
+        requires :description, type: String
+        requires :days, type: String
+      end
       post do
-        #Creates a new movies
+        movie = Movie.new(params)
+        if CreateMovie.new.call(movie)
+          DB[:movies].find(movie.id).first
+        else
+          movie.errors
+        end
       end
 
       desc 'Returns a list of movies given a day.'
@@ -16,7 +26,7 @@ module App
         requires :day, type: String, desc: 'Day of week'
       end
       get do
-        #Returns a list of movies given a day
+        DB[:movies].all
       end
     end
 
