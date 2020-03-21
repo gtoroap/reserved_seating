@@ -1,4 +1,6 @@
 require 'grape'
+require 'byebug'
+
 module App
   class API < Grape::API
     version 'v1'
@@ -12,12 +14,15 @@ module App
         requires :description, type: String
         requires :days, type: String
       end
+
       post do
         movie = Movie.new(params)
-        if CreateMovie.new.call(movie)
-          DB[:movies].find(movie.id).first
+        movie = CreateMovie.new.call(movie)
+
+        if movie.success?
+          movie.success.values
         else
-          movie.errors
+          error!(movie.failure.values, 422)
         end
       end
 
@@ -25,6 +30,7 @@ module App
       params do
         requires :day, type: String, desc: 'Day of week'
       end
+
       get do
         DB[:movies].all
       end
