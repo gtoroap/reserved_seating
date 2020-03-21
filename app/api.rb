@@ -44,6 +44,13 @@ module App
       desc 'Creates a new reservation.'
       post do
         #Creates a new reservation
+        reservation = CreateReservation.new.call(Reservation.new(params))
+
+        if reservation.success?
+          reservation.success.values
+        else
+          error!(reservation.failure.values, 422)
+        end
       end
 
       desc 'Returns a list of reservations given a date range.'
@@ -53,6 +60,7 @@ module App
       end
       get do
         #Returns a list of reservations given a date range
+        DB[:reservations].all
       end
     end
   end

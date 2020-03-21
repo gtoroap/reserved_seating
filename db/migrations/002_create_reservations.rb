@@ -3,10 +3,10 @@ class CreateReservations
     change do
       create_table(:reservations) do
         primary_key :id
-        Integer :movie_id, null: false
         String :date, null: false
         String :client_fullname
         String :total_seats
+        foreign_key :movie_id, :movies
       end
     end
   end
