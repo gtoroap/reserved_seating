@@ -18,6 +18,10 @@ class ListReservation
   end
 
   def valid_date_range(start_date, end_date)
-    Date.parse(end_date) >= Date.parse(start_date)
+    begin
+      Date.parse(end_date) >= Date.parse(start_date)
+    rescue Date::Error
+      nil
+    end
   end
 end
