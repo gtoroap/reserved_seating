@@ -15,7 +15,7 @@ class Reservation < Sequel::Model
 
   def valid_date(movie_id, date)
     begin
-      parsed_date = Date.parse(date).cwday
+      parsed_date = Date.parse(date).wday
       formatted_date = Date::DAYNAMES[parsed_date].downcase[0..2]
       movie = Movie.get(movie_id)
       if movie
