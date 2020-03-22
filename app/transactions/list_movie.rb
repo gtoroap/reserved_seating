@@ -13,5 +13,4 @@ class ListMovie
       Failure(error: 'Day does not have a valid format')
     end
   end
-
 end

@@ -42,6 +42,7 @@ module App
 
     resource :reservations do
       desc 'Creates a new reservation.'
+
       post do
         reservation = CreateReservation.new.call(Reservation.new(params))
 
@@ -57,9 +58,15 @@ module App
         requires :start_date, type: String, desc: 'Start date'
         requires :end_date, type: String, desc: 'End date'
       end
+
       get do
-        #Returns a list of reservations given a date range
-        DB[:reservations].all
+        reservations = ListReservation.new.call(params)
+
+        if reservations.success?
+          reservations.success.map &:values
+        else
+          error!(reservations.failure.values, 422)
+        end
       end
     end
   end

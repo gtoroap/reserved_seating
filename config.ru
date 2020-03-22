@@ -14,7 +14,7 @@ Sequel.extension :migration
 #Run migrations if exists a database connection
 Sequel::Migrator.run(DB, './db/migrations') if DB
 
-# Auto-Load models
+# Auto-Load models and transactions
 Dir[File.join(File.dirname(__FILE__), 'app/models', '**', '*.rb')].sort.each {|file| require file }
 Dir[File.join(File.dirname(__FILE__), 'app/transactions', '**', '*.rb')].sort.each {|file| require file }
 
