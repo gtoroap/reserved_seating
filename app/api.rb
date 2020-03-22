@@ -15,7 +15,7 @@ module App
       end
 
       post do
-        movie = CreateMovie.new.call(Movie.new(params))
+        movie = CreateMovie.new.call(params)
 
         if movie.success?
           movie.success.values
@@ -44,7 +44,7 @@ module App
       desc 'Creates a new reservation.'
 
       post do
-        reservation = CreateReservation.new.call(Reservation.new(params))
+        reservation = CreateReservation.new.call(params)
 
         if reservation.success?
           reservation.success.values

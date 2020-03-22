@@ -7,10 +7,11 @@ class CreateMovie
   step :persist
 
   def validate(data)
-    if data.valid?
-      Success(name: data.name, description: data.description, image_url: data.image_url, days: data.days)
+    movie = Movie.new(name: data[:name], description: data[:description], image_url: data[:image_url], days: data[:days])
+    if movie.valid?
+      Success(movie)
     else
-      Failure(errors: data.errors)
+      Failure(errors: movie.errors)
     end
   end
 

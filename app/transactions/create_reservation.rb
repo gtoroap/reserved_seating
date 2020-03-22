@@ -7,10 +7,11 @@ class CreateReservation
   step :persist
 
   def validate(data)
-    if data.valid?
-      Success(movie_id: data.movie_id, date: data.date, client_fullname: data.client_fullname, seats: data.seats)
+    reservation = Reservation.new(movie_id: data[:movie_id], client_fullname: data[:client_fullname], date: data[:date], seats: data[:seats])
+    if reservation.valid?
+      Success(reservation)
     else
-      Failure(errors: data.errors)
+      Failure(errors: reservation.errors)
     end
   end
 
