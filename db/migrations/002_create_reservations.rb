@@ -5,7 +5,7 @@ class CreateReservations
         primary_key :id
         String :date, null: false
         String :client_fullname
-        String :total_seats
+        Integer :seats
         foreign_key :movie_id, :movies
       end
     end
